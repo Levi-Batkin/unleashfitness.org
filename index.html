@@ -91,6 +91,30 @@
             text-align: center;
             padding: 0.5em 0;
         }
+        
+        @media (max-width: 768px) {
+            section form {
+                display: none;
+            }
+
+            #toggleFormBtn {
+                display: block;
+                margin: 1em auto;
+                padding: 0.5em 1em;
+                font-size: 16px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #toggleFormBtn {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -121,7 +145,8 @@
     <section>
         <div class="container">
             <h2>Contact Form</h2>
-            <form>
+            <button id="toggleFormBtn" onclick="toggleFormVisibility()">Show Contact Form</button>
+            <form id="contactForm">
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="fullName">Full Name</label>
@@ -236,6 +261,40 @@
                 otherGenderInput.required = false;
             }
         }
+        function resetFormStatus() {
+            var form = document.getElementById('contactForm');
+            var toggleBtn = document.getElementById('toggleFormBtn');
+            form.style.display = 'none';
+            toggleBtn.innerText = 'Show Contact Form';
+        }
+
+        window.addEventListener('resize', function () {
+            var form = document.getElementById('contactForm');
+            var toggleBtn = document.getElementById('toggleFormBtn');
+            if (window.innerWidth > 768) {
+                form.style.display = 'block';
+                toggleBtn.style.display = 'none';
+            } else {
+                form.style.display = 'none';
+                toggleBtn.style.display = 'block';
+                resetFormStatus(); // Reset form status when switching to mobile size
+            }
+        });
+
+        function toggleFormVisibility() {
+            var form = document.getElementById('contactForm');
+            var toggleBtn = document.getElementById('toggleFormBtn');
+            if (form.style.display === 'none' || form.style.display === '') {
+                form.style.display = 'block';
+                toggleBtn.innerText = 'Hide Contact Form';
+            } else {
+                form.style.display = 'none';
+                toggleBtn.innerText = 'Show Contact Form';
+            }
+        }
+
+        // Initial check on page load
+        window.dispatchEvent(new Event('resize'));
     </script>
 </body>
 
