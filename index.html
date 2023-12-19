@@ -9,18 +9,19 @@
     <link rel="icon" href="https://github.com/Levi-Batkin/unleashfitness.org/blob/main/logo.jpg?raw=true" type="image/png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
 
-    <style id="theme-style">
+    <style>
         body {
             font-family: 'Roboto', sans-serif;
-            color: #fff;
+            background-color: #f8f9fa;
+            color: #495057;
             margin: 0;
             padding: 0;
         }
 
         header {
-            background-color: #333;
+            background-color: #fff;
             box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-            border-bottom: 1px solid #555;
+            border-bottom: 1px solid #e9ecef;
             padding: 1em 0;
         }
 
@@ -45,7 +46,7 @@
         }
 
         section {
-            background-color: #333;
+            background-color: #fff;
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             margin: 2em auto;
@@ -54,31 +55,24 @@
 
         h1,
         h2 {
-            color: #fff;
+            color: #343a40;
         }
 
-        form label {
-            color: #fff;
+        form {
+            margin-top: 2em;
         }
 
-        form input,
-        form select,
-        form textarea {
-            background-color: #555;
-            color: #fff;
-        }
-
-        .contact-info,
-        footer {
-            background-color: #444;
-            color: #fff;
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2em;
         }
 
         .map {
-            background-color: #555;
-            border-radius: 8px;
+            margin-top: 2em;
             overflow: hidden;
             position: relative;
+            border-radius: 8px;
             height: 300px;
         }
 
@@ -92,17 +86,34 @@
         }
 
         footer {
+            background-color: #ffffff;
+            color: #fff;
             text-align: center;
             padding: 0.5em 0;
         }
+        
+        @media (max-width: 768px) {
+            section form {
+                display: none;
+            }
 
-        .btn-toggle {
-            background-color: #fff;
-            color: #333;
-            border: none;
-            padding: 5px 10px;
-            margin: 5px;
-            cursor: pointer;
+            #toggleFormBtn {
+                display: block;
+                margin: 1em auto;
+                padding: 0.5em 1em;
+                font-size: 16px;
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+        }
+
+        @media (min-width: 769px) {
+            #toggleFormBtn {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -113,36 +124,148 @@
             <img src="https://github.com/Levi-Batkin/unleashfitness.org/blob/main/logo.jpg?raw=true" alt="Unleash Fitness Logo">
             <span class="company-name">Unleash Fitness</span>
             <button class="btn btn-primary contact-btn" href="mailto:josh.batkin@unleashfitness.org">Contact</button>
-            <button class="btn-toggle" onclick="toggleTheme()">Toggle Theme</button>
         </div>
     </header>
 
-    <!-- ... Rest of your HTML ... -->
+    <section>
+        <div class="container">
+            <h2 style="text-align: center;">Welcome to Unleash Fitness</h2>
+            <br>
+            <p>
+                Unleash Fitness is your dedicated partner in achieving a healthier and more active lifestyle.
+                Josh Batkin, our experienced fitness coach, is committed to helping you reach your fitness goals.
+            </p>
+            <p>
+                Our coaching services include personalized workout plans, nutrition guidance, and continuous support
+                to ensure your success on your fitness journey.
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <h2>Contact Form</h2>
+            <button id="toggleFormBtn" onclick="toggleFormVisibility()">Show Contact Form</button>
+            <form id="contactForm">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="fullName">Full Name</label>
+                        <input type="text" class="form-control" id="fullName" placeholder="Your Full Name">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" onchange="checkOther(this.value)">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row" id="otherGenderRow" style="display: none;">
+                    <div class="form-group col-md-6">
+                        <label for="otherGender">Specify Gender</label>
+                        <input type="text" class="form-control" id="otherGender" placeholder="Your Gender">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" class="form-control" id="dob">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="age">Age</label>
+                        <input type="number" class="form-control" id="age" placeholder="Your Age">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="height">Height</label>
+                        <input type="text" class="form-control" id="height" placeholder="Your Height">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="weight">Weight</label>
+                        <input type="text" class="form-control" id="weight" placeholder="Your Weight">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="location">Location</label>
+                        <input type="text" class="form-control" id="location" placeholder="Your Location">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="occupation">Occupation</label>
+                        <input type="text" class="form-control" id="occupation" placeholder="Your Occupation">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="activityLevel">Activity Level at Your Job</label>
+                        <input type="text" class="form-control" id="activityLevel" placeholder="Your Activity Level">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exerciseFrequency">How Often Do You Exercise</label>
+                        <input type="text" class="form-control" id="exerciseFrequency" placeholder="Exercise Frequency">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" class="form-control" id="phone" placeholder="Your Phone Number">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Your Email Address">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+        <br>
+        <div class="container contact-info">
+            <h2>Contact Information:</h2>
+            <br>
+            <ul>
+                <li>📞: 07494 490441</li>
+                <li>📷: @joshbatkin</li>
+                <li>✉️: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84eeebf7ecaae6e5f0efedeac4f1eae8e1e5f7ece2edf0eae1f7f7aaebf6e3">[email&#160;protected]</a></li>
+            </ul>
+        </div>
+        <br>
+        <div class="container map">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7924.938417568573!2d0.46245617464190224!3d50.84528300601257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47df6c1b9f1202f7%3A0x4641f06c7e74fc79!2sBexhill-on-Sea!5e0!3m2!1sen!2suk!4v1638569660713!5m2!1sen!2suk"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Unleash Fitness. All Rights Reserved.</p>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        function toggleTheme() {
-            var themeStyle = document.getElementById('theme-style');
-            var currentTheme = themeStyle.getAttribute('data-theme');
+        function checkOther(value) {
+            var otherGenderRow = document.getElementById('otherGenderRow');
+            var otherGenderInput = document.getElementById('otherGender');
 
-            if (currentTheme === 'dark') {
-                themeStyle.textContent = ''; // Remove dark theme styles
-                themeStyle.setAttribute('data-theme', 'light');
+            if (value === 'other') {
+                otherGenderRow.style.display = 'flex';
+                otherGenderInput.required = true;
             } else {
-                themeStyle.textContent = `
-                    body {
-                        font-family: 'Roboto', sans-serif;
-                        color: #fff;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    
-                    /* Add other light theme styles here */
-                `;
-                themeStyle.setAttribute('data-theme', 'dark');
+                otherGenderRow.style.display = 'none';
+                otherGenderInput.required = false;
             }
         }
+        function resetFormStatus() {
+            var form = document.getElementById('contactForm');
+            var toggleBtn = document.getElementById('toggleFormBtn');
+            form.style.display = 'none';
+            toggleBtn.innerText = 'Show Contact Form';
+        }
 
-        // Initial check on page load
         window.addEventListener('resize', function () {
             var form = document.getElementById('contactForm');
             var toggleBtn = document.getElementById('toggleFormBtn');
@@ -169,26 +292,6 @@
         }
 
         // Initial check on page load
-        window.addEventListener('resize', function () {
-            var form = document.getElementById('contactForm');
-            var toggleBtn = document.getElementById('toggleFormBtn');
-            if (window.innerWidth > 768) {
-                form.style.display = 'block';
-                toggleBtn.style.display = 'none';
-            } else {
-                form.style.display = 'none';
-                toggleBtn.style.display = 'block';
-                resetFormStatus(); // Reset form status when switching to mobile size
-            }
-        });
-
-        function resetFormStatus() {
-            var form = document.getElementById('contactForm');
-            var toggleBtn = document.getElementById('toggleFormBtn');
-            form.style.display = 'none';
-            toggleBtn.innerText = 'Show Contact Form';
-        }
-
         window.dispatchEvent(new Event('resize'));
     </script>
 </body>
